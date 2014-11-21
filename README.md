@@ -1,4 +1,4 @@
-# MEAN.io
+# MEAN
 
 MEAN is a framework for an easy starting point with [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. It is designed to give you a quick and organized way to start developing MEAN based web apps with useful modules like Mongoose and Passport pre-bundled and configured. We mainly try to take care of the connection points between existing popular frameworks and solve common integration problems.
 ## Prerequisites
@@ -317,6 +317,13 @@ Javascript and css from `assets` can be aggregated to the global aggregation fil
 > injected into the mean project. As a result libraries that you do not
 > want aggregated should be placed within `public/assets/js`
 
+The aggregation supports the ability to control the location of where to inject the aggregated code and if you add a weight and a group to your aggregateAsset method you can make sure it's included in the correct region.
+
+      MyPackage.aggregateAsset('js','first.js',{global:true,  weight: -4, group: 'header'});
+>The line that gets loaded in your head.html calls the header group and injects the js you want to include first-
+> in packages/system/server/views/includes/head.html 
+> <script type="text/javascript" src="/modules/aggregated.js?group=header"></script>
+
 ###Settings Object
 The settings object is a persistance object that is stored in the packages collection and allows for saving persistant information per package such as configuration options or admin settings for the package.
 
@@ -331,7 +338,7 @@ The settings object is a persistance object that is stored in the packages colle
     // This writes over the last settings.
     MyPackage.settings({'anotherSettings':'some value'});
 
-    // Get settings. Retrieves latest saved settigns
+    // Get settings. Retrieves latest saved settings
     MyPackage.settings(function (err, settings) {
       //you now have the settings object
     });
@@ -405,7 +412,7 @@ Below is an example rendering some simple html>
     });
   });
 
-###Overriding the default views and layouts
+###Overriding the default layouts
 One is able to override the default layout of the application through a custom package.
 
 Below is an example overriding the default layout of system and instead using the layourts found locally within the package
@@ -415,6 +422,18 @@ Below is an example overriding the default layout of system and instead using th
 
 > Please note that the package must depend on `System` to ensure it is
 > evaluated after `System` and can thus override the views folder
+
+### Overriding views
+You may override public views used by certain core packages.  To create a custom home page, you would create a custom package and modify the script in it's public folder like so:
+
+```
+angular.module('mean.mycustompackage', ['mean.system'])
+  .config(['$viewPathProvider', function($viewPathProvider) {
+    $viewPathProvider.override('system/views/index.html', 'mycustompackage/views/myhomepage.html');
+  }]);
+```
+
+This will render *mycustompackage/views/myhomepage.html* as the home page.
 
 ### Creating your own package
 To create your own package and scaffold it's initial code - run
