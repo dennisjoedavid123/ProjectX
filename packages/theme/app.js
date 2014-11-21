@@ -15,7 +15,7 @@ Theme.register(function(app, auth, database) {
 
   //We enable routing. By default the Package Object is passed to the routes
   Theme.routes(app, auth, database);
-
+  //app.set('views',_dirname+'/server/views/bucket')
   //We are adding a link to the main menu for all authenticated users
 //  Theme.menus.add({
 //    title: 'theme example page',

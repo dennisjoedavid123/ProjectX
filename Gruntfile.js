@@ -32,41 +32,41 @@ module.exports = function(grunt) {
           interval: 500
         }
       },
-      css: {
-        files: paths.css,
-        tasks: ['csslint'],
-        options: {
-          livereload: true
-        }
-      }
+      // css: {
+      //   files: paths.css,
+      //   tasks: ['csslint'],
+      //   options: {
+      //     livereload: true
+      //   }
+      // }
     },
-    jshint: {
-      all: {
-        src: paths.js,
-        options: {
-          jshintrc: true
-        }
-      }
-    },
-    uglify: {
-      core: {
-        options: {
-          mangle: false
-        },
-        files: '<%= assets.core.js %>'
-      }
-    },
-    csslint: {
-      options: {
-        csslintrc: '.csslintrc'
-      },
-      src: paths.css
-    },
-    cssmin: {
-      core: {
-        files: '<%= assets.core.css %>'
-      }
-    },
+    // jshint: {
+    //   all: {
+    //     src: paths.js,
+    //     options: {
+    //       jshintrc: true
+    //     }
+    //   }
+    // },
+    // uglify: {
+    //   core: {
+    //     options: {
+    //       mangle: false
+    //     },
+    //     files: '<%= assets.core.js %>'
+    //   }
+    // },
+    // csslint: {
+    //   options: {
+    //     csslintrc: '.csslintrc'
+    //   },
+    //   src: paths.css
+    // },
+    // cssmin: {
+    //   core: {
+    //     files: '<%= assets.core.css %>'
+    //   }
+    // },
     nodemon: {
       dev: {
         script: 'server.js',
